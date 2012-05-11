@@ -1,7 +1,8 @@
 /******************************************************************************************************************************************
  * 
- * Author: Ricardo Masumi Iwashima ( RMI )
- * Date..: 21/04/2012
+ * author.: Ricardo Masumi Iwashima ( RMI )
+ * version: 1.00
+ * Date...: 21/04/2012
  * 
  * 	- Type 
  * 		0 - Warning Message 
@@ -31,18 +32,32 @@
  * 
  * 	-> Path of the log file and the configuration file can be changed through:
  * 
- *  	- setting a new path of the log file
+ *  	- setting up a new path of the log file
  *  		
  *  		setFilePath( path ); <- Where path is the path where the log file should be stored
  *  
- *  	- setting a new path of the configuration file ( RMILogger.conf )
+ *  	- setting up a new path of the configuration file configuration file
  *  
  *  		setConfFile( path ); <- Where path is the path where the configuration file should be stored
  *  
- *  -> Name of the log file can be changed through:
+ *  -> Name of the log file and the configuration file can be changed through:
  *  
- *  	setFileName( name ); Where name is the name of the file that should be used to record the log ( default RMILogger.txt )
+ *  	- setting up a new file name of the log file
+ *  		
+ *  		setFileName( name ); Where name is the name of the file that should be used to record the log ( default RMILogger.txt )
  *  
+ * 		- setting up a new file name of the configuration file
+ * 
+ * 			* * * changing the configuration file may result in loss of the log IDs * * *
+ * 
+ * 			setConfFile( name ); Where name is the name of the file that should be used to store configuration ( default RMILogger.conf )
+ * 			
+ * 
+ * @param 1st: warning type ( 0 - Warning Message, 1 - Error Message, 2 - Severe Error Message )
+ * @param 2nd: Message to be displayed / printed in the log
+ * @param 3rd: Message on Screen ( true - Display message on screen, false - Do NOT display message on screen )
+ * @param 4th: Level of details ( true - display / print a full description of the error, false - display / print a summary of the error )
+ * 
  **********************************************************************************************************************************/
 
 
@@ -54,13 +69,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
+/*** RMILogger - display and print log messages ***/
 public class RMILogger {
 	
 	/*** INFORMATION STORED INTO THE CONFFIGURATION FILE ***/
-	private File logConfFile = new File("RMILogger.conf");
-	private String logConfPath = ".";
+	private String logConfFile = "RMILogger.conf";
+	private String logConfPath = ".\\";
 	private FileReader logFR; 
 	private BufferedReader BFLogger;
 	private BufferedWriter BRLogger;
@@ -69,13 +84,11 @@ public class RMILogger {
 	private Throwable t = new Throwable(); 
 	private StackTraceElement[] trace = t.getStackTrace(); 
 
-	
 	/*** LOGGER VARIABLES ***/
 	private int logID = 0;
 	
-	private String logFilePath = ".";
+	private String logFilePath = ".\\";
 	private String logFileName = "RMILogger.txt";
-	private String logMessage;
 	private String[] logType = {"Warning Message", "Error Message", "Severe Error Message"};
 	
 	/*** START UP - IMPORT CONFIGURATION FILE TO GET LAST ERROR ID ***/
@@ -83,7 +96,7 @@ public class RMILogger {
 		
 		try {
 		
-			logFR = new FileReader(logConfFile);
+			logFR = new FileReader(new File(logConfPath + logConfFile));
 
 			BFLogger = new BufferedReader(logFR);
 			
@@ -100,27 +113,62 @@ public class RMILogger {
 		
 	}
 	
-	/*** SET UP THE PATH OF THE LOG FILE ***/
+	/*** Set up a new path for the log file
+	 * 
+	 * @param path new path for the log file ( make sure the folder already exists !!! )
+	 * 
+	 * ***/
 	public void setFilePath(String path) { 
 		
 		this.logFilePath = path;
 		
 	}
 	
-	/*** SET UP A NEW NAME FOR THE LOG FILE - DEFAULT IS RMILogger.txt ***/
+	/*** Set up a new name for the log file 
+	 * 
+	 * @param file new name for the log file ( DEFAULT: RMILogger.txt )
+	 * 
+	 ***/
 	public void setFileName(String file) {
 		
 		this.logFileName = file;
 		
 	}
-	
+
+	/*** Set up new path for the configuration file 
+	 * 
+	 * @param path new path of the file ( make sure the folder already exists  !!! )
+	 * 
+	 * @see warning *** WARNING *** Changing the path of the configuration file name may result in loss of log IDs
+	 * 
+	 ***/
 	public void setConfPath(String path) {
 		
 		this.logConfPath = path;
 		
 	}
 	
-	/*** MAIN METHOD FOR DISPLAYING OR PRINTING MESSAGES ***/
+	/*** Set up a new name for the configuration file
+	 * 
+	 * @param file new name of the configuration file ( DEFAULT: RMILogger.conf )
+	 * 
+	 * @see warning *** WARNING *** Changing the name of the configuration file name may result in loss of log IDs 
+	 * 
+	 ***/
+	public void setConfFile(String file) { 
+		
+		this.logConfFile = file;
+		
+	}
+	
+	/*** Method that displays / prints the log messages 
+	 * 
+	 * @param 1st: warning type ( 0 - Warning Message, 1 - Error Message, 2 - Severe Error Message )
+	 * @param 2nd: Message to be displayed / printed in the log
+	 * @param 3rd: Message on Screen ( true - Display message on screen, false - Do NOT display message on screen )
+	 * @param 4th: Level of details ( true - display / print a full description of the error, false - display / print a summary of the error )
+	 *
+	 ***/
 	public void setError(int type, String msg, boolean scr, boolean det) {
 		
 		startUp(); // GET A NEW ID
@@ -151,23 +199,23 @@ public class RMILogger {
 		
 		try{ 
 
-			BRLogger = new BufferedWriter(new FileWriter(logFilePath + "\\" + logFileName, true ));
+			BRLogger = new BufferedWriter(new FileWriter(logFilePath + logFileName, true ));
 			
 			/*** WRITE INFORMATION INTO THE FILE ***/
-			BRLogger.write(" * * * * " + logType[type] + " * * * * \n" );
-			BRLogger.write("BugID..: " + logID         + "\n");
-			BRLogger.write("Message: " + message       + "\n");
+			BRLogger.write(" * * * * " + logType[type] + " * * * * \r\n" );
+			BRLogger.write("BugID..: " + logID         + "\r\n");
+			BRLogger.write("Message: " + message       + "\r\n");
 			
 			/*** DETAILED LOG ***/
 			if ( det ) {
 				
-				BRLogger.write("Time...: " + epoch         + "\n");
-				BRLogger.write("Class..: " + className     + "\n");
-				BRLogger.write("Package: " + packageName   + "\n");
+				BRLogger.write("Time...: " + epoch         + "\r\n");
+				BRLogger.write("Class..: " + className     + "\r\n");
+				BRLogger.write("Package: " + packageName   + "\r\n");
 			
 			}
 			
-			BRLogger.write("\n");
+			BRLogger.write("\r\n");
 			
 			BRLogger.close();
 			
@@ -210,7 +258,7 @@ public class RMILogger {
 		
 		try {
 			
-			BRConf = new BufferedWriter(new FileWriter(logConfPath + "//" + logConfFile));
+			BRConf = new BufferedWriter(new FileWriter(logConfPath + logConfFile));
 			
 			BRConf.write(String.valueOf(logID));
 			
