@@ -1,0 +1,23 @@
+ * * * * Warning Message * * * * 
+BugID..: 1
+Message: DEF Message
+Time...: 1335030254
+Class..: abc.java
+Package: test
+
+ * * * * Warning Message * * * * 
+BugID..: 2
+Message: DEF Message
+ * * * * Warning Message * * * * 
+BugID..: 3
+Message: DEF Message
+ * * * * Warning Message * * * * 
+BugID..: 4
+Message: DEF Message
+ * * * * Warning Message * * * * 
+BugID..: 5
+Message: DEF Message
+Time...: 1335184504
+Class..: abc.java
+Package: test
+

@@ -2,7 +2,7 @@ package test;
 
 import logger.RMILogger;
 
-public class abc {
+public class ExampleUsage {
 	
 	public static void main(String[] args) {
 

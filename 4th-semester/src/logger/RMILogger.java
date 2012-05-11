@@ -1,3 +1,51 @@
+/******************************************************************************************************************************************
+ * 
+ * Author: Ricardo Masumi Iwashima ( RMI )
+ * Date..: 21/04/2012
+ * 
+ * 	- Type 
+ * 		0 - Warning Message 
+ * 		1 - Error Message 
+ * 		3 - Severe Error Message )
+ * 	
+ * 	- ID 
+ * 		Automatic, last ID stored into RMILogger.conf file
+ * 
+ * 	- Message
+ * 		Message passed when calling the logger
+ *  
+ *  - Time
+ * 		Time in Epoch
+ * 
+ * 	- Class
+ * 		Name of the class that called the logger, it is automatically assigned
+ * 
+ * - Package
+ * 		Name of the package in which the program that called the logger is in
+ *  
+ *  Simple error logger which:
+ *  
+ * 	-> Display error ( simple or detailed )
+ * 		- Simple ( type of log, ID and Message )
+ * 		- Detailed ( type of log, ID, Message, Time, Class and Package )
+ * 
+ * 	-> Path of the log file and the configuration file can be changed through:
+ * 
+ *  	- setting a new path of the log file
+ *  		
+ *  		setFilePath( path ); <- Where path is the path where the log file should be stored
+ *  
+ *  	- setting a new path of the configuration file ( RMILogger.conf )
+ *  
+ *  		setConfFile( path ); <- Where path is the path where the configuration file should be stored
+ *  
+ *  -> Name of the log file can be changed through:
+ *  
+ *  	setFileName( name ); Where name is the name of the file that should be used to record the log ( default RMILogger.txt )
+ *  
+ **********************************************************************************************************************************/
+
+
 package logger;
 
 import java.io.BufferedReader;
@@ -10,7 +58,7 @@ import java.io.InputStreamReader;
 
 public class RMILogger {
 	
-	/*** INFORMATION STORED INTO A CONFFIGURATION FILE ***/
+	/*** INFORMATION STORED INTO THE CONFFIGURATION FILE ***/
 	private File logConfFile = new File("RMILogger.conf");
 	private String logConfPath = ".";
 	private FileReader logFR; 
@@ -66,6 +114,12 @@ public class RMILogger {
 		
 	}
 	
+	public void setConfPath(String path) {
+		
+		this.logConfPath = path;
+		
+	}
+	
 	/*** MAIN METHOD FOR DISPLAYING OR PRINTING MESSAGES ***/
 	public void setError(int type, String msg, boolean scr, boolean det) {
 		
@@ -103,9 +157,17 @@ public class RMILogger {
 			BRLogger.write(" * * * * " + logType[type] + " * * * * \n" );
 			BRLogger.write("BugID..: " + logID         + "\n");
 			BRLogger.write("Message: " + message       + "\n");
-			BRLogger.write("Time...: " + epoch         + "\n");
-			BRLogger.write("Class..: " + className     + "\n");
-			BRLogger.write("Package: " + packageName   + "\n\n");
+			
+			/*** DETAILED LOG ***/
+			if ( det ) {
+				
+				BRLogger.write("Time...: " + epoch         + "\n");
+				BRLogger.write("Class..: " + className     + "\n");
+				BRLogger.write("Package: " + packageName   + "\n");
+			
+			}
+			
+			BRLogger.write("\n");
 			
 			BRLogger.close();
 			
@@ -132,10 +194,15 @@ public class RMILogger {
 		System.out.print(" * * * * " + logType[type] + " * * * * \n" );
 		System.out.print("BugID..: " + logID         + "\n");
 		System.out.print("Message: " + message       + "\n");
-		System.out.print("Time...: " + epoch         + "\n");
-		System.out.print("Class..: " + className     + "\n");
-		System.out.print("Package: " + packageName   + "\n\n");
-
+		
+		/*** DETAILED LOG ***/
+		if ( det ) {
+			
+			System.out.print("Time...: " + epoch         + "\n");
+			System.out.print("Class..: " + className     + "\n");
+			System.out.print("Package: " + packageName   + "\n\n");
+			
+		}
 	}
 	
 	/*** WRITE INFORMATION INTO THE CONF FILE ***/
