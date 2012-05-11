@@ -1,9 +1,11 @@
-/******************************************************************************************************************************************
+/*** DEVELOPER GUIDE ***
  * 
  * author.: Ricardo Masumi Iwashima ( RMI )
  * version: 1.00
  * Date...: 21/04/2012
  * 
+ * > Information displayed / printed in the logs:	
+ * 	
  * 	- Type 
  * 		0 - Warning Message 
  * 		1 - Error Message 
@@ -21,45 +23,46 @@
  * 	- Class
  * 		Name of the class that called the logger, it is automatically assigned
  * 
- * - Package
+ * 	- Package
  * 		Name of the package in which the program that called the logger is in
  *  
- *  Simple error logger which:
+ * > Features
  *  
- * 	-> Display error ( simple or detailed )
- * 		- Simple ( type of log, ID and Message )
- * 		- Detailed ( type of log, ID, Message, Time, Class and Package )
+ * 		-> Display error ( simple or detailed )
+ * 			- Simple ( type of log, ID and Message )
+ * 			- Detailed ( type of log, ID, Message, Time, Class and Package )
  * 
- * 	-> Path of the log file and the configuration file can be changed through:
+ * 		-> Path of the log file and the configuration file can be changed through:
  * 
- *  	- setting up a new path of the log file
+ *  		- setting up a new path of the log file
  *  		
- *  		setFilePath( path ); <- Where path is the path where the log file should be stored
+ *  			setFilePath( path ); <- Where path is the path where the log file should be stored
  *  
- *  	- setting up a new path of the configuration file configuration file
+ *  		- setting up a new path of the configuration file configuration file
  *  
- *  		setConfFile( path ); <- Where path is the path where the configuration file should be stored
+ *  			setConfFile( path ); <- Where path is the path where the configuration file should be stored
  *  
- *  -> Name of the log file and the configuration file can be changed through:
+ *  	-> Name of the log file and the configuration file can be changed through:
  *  
- *  	- setting up a new file name of the log file
+ *  		- setting up a new file name of the log file
  *  		
- *  		setFileName( name ); Where name is the name of the file that should be used to record the log ( default RMILogger.txt )
+ *  			setFileName( name ); Where name is the name of the file that should be used to record the log ( default RMILogger.txt )
  *  
- * 		- setting up a new file name of the configuration file
+ * 			- setting up a new file name of the configuration file
  * 
- * 			* * * changing the configuration file may result in loss of the log IDs * * *
+ * 				* * * changing the configuration file may result in loss of the log IDs * * *
  * 
- * 			setConfFile( name ); Where name is the name of the file that should be used to store configuration ( default RMILogger.conf )
+ * 				setConfFile( name ); Where name is the name of the file that should be used to store configuration ( default RMILogger.conf )
  * 			
  * 
- * @param 1st: warning type ( 0 - Warning Message, 1 - Error Message, 2 - Severe Error Message )
- * @param 2nd: Message to be displayed / printed in the log
- * @param 3rd: Message on Screen ( true - Display message on screen, false - Do NOT display message on screen )
- * @param 4th: Level of details ( true - display / print a full description of the error, false - display / print a summary of the error )
+ * > The logger is run invoking the method setError() which should receive 4 parameters
  * 
- **********************************************************************************************************************************/
-
+ * 		1st: warning type ( 0 - Warning Message, 1 - Error Message, 2 - Severe Error Message )
+ * 		2nd: Message to be displayed / printed in the log
+ * 		3rd: Message on Screen ( true - Display message on screen, false - Do NOT display message on screen )
+ * 		4th: Level of details ( true - display / print a full description of the error, false - display / print a summary of the error )
+ * 
+ ***/
 
 package logger;
 
@@ -73,9 +76,10 @@ import java.io.IOException;
 /*** RMILogger - display and print log messages ***/
 public class RMILogger {
 	
-	/*** INFORMATION STORED INTO THE CONFFIGURATION FILE ***/
+	/*** INFORMATION STORED INTO THE CONFIGURATION FILE ***/
 	private String logConfFile = "RMILogger.conf";
 	private String logConfPath = ".\\";
+	
 	private FileReader logFR; 
 	private BufferedReader BFLogger;
 	private BufferedWriter BRLogger;
@@ -110,7 +114,6 @@ public class RMILogger {
 			logID = 1;
 
 		}
-		
 	}
 	
 	/*** Set up a new path for the log file
@@ -182,6 +185,7 @@ public class RMILogger {
 		
 		/*** PRINT LOG ON FILE ***/
 		logError(type, msg, det);
+		
 	}
 	
 	/*** LOG ERRO TO FILE ***/

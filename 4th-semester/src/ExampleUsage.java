@@ -10,16 +10,16 @@ public class ExampleUsage {
 		/*** OPTIONAL SETTINGS ***/
 		
 		// set a different path for the log file ( default is the location of the program which invokes the log )
-		log.setFilePath("g:\\test\\"); // make sure that the folder already exists
+		log.setFilePath("c:\\LogFolder\\"); // make sure that the folder already exists
 		
 		// set a different file name for the log file ( default RMILogger.txt )
-		log.setFileName("test.txt");
+		log.setFileName("LogFile.txt");
 		
 		// set a different path for the configuration file ( default is the location of the program which invokes the log )
-		log.setConfPath("g:\\test\\"); // make sure that the folder already exists
+		log.setConfPath("c:\\ConfFolder\\"); // make sure that the folder already exists
 		
 		// set a different file name for the configuration file ( default RMILogger.conf )
-		log.setConfFile("test.conf"); // changing the configuration file may result in loss of the log IDs !!!
+		log.setConfFile("ConfFile.conf"); // changing the configuration file may result in loss of the log IDs !!!
 		
 		/*** EXAMPLE HOW TO LOG AN ERROR ***/
 		
