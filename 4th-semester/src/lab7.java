@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class lab6 {
+public class lab7 {
 	
 	Connection conn = null;
 	ResultSet  res  = null;
@@ -14,11 +14,11 @@ public class lab6 {
 	
 	public static void main(String[] args) {
 
-		new lab6();
+		new lab7();
 		
 	}
 	
-	public lab6(){
+	public lab7(){
 		
 		try {
 
