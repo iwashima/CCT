@@ -21,3 +21,10 @@ Time...: 1335184504
 Class..: abc.java
 Package: test
 
+ * * * * Error Message * * * * 
+BugID..: 6
+Message: Error converting to Integer (java.lang.NumberFormatException: For input string: "ABC")
+Time...: 1337268888
+Class..: ExampleUsage.java
+Package: java.net
+

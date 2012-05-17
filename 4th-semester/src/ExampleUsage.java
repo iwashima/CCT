@@ -8,7 +8,7 @@ public class ExampleUsage {
 		RMILogger log = new RMILogger();
 		
 		/*** OPTIONAL SETTINGS ***/
-		
+		/**
 		// set a different path for the log file ( default is the location of the program which invokes the log )
 		log.setFilePath("c:\\LogFolder\\"); // make sure that the folder already exists
 		
@@ -20,7 +20,7 @@ public class ExampleUsage {
 		
 		// set a different file name for the configuration file ( default RMILogger.conf )
 		log.setConfFile("ConfFile.conf"); // changing the configuration file may result in loss of the log IDs !!!
-		
+		***/
 		/*** EXAMPLE HOW TO LOG AN ERROR ***/
 		
 		try{
